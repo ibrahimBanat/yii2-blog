@@ -36,6 +36,10 @@ class SignupForm extends Model {
         $user->auth_key = \Yii::$app->security->generateRandomString();
 
         if($user->save()) {
+            $auth = \Yii::$app->authManager;
+            $authorRole = $auth->getRole('author');
+
+            $auth->assign($authorRole, $user->getId());
             return true;
         }
         \Yii::error('User was not saved.' . VarDumper::dumpAsString($user->errors));

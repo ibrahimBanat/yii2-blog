@@ -24,7 +24,6 @@ AppAsset::register($this);
 </head>
 <body class="d-flex flex-column h-100">
 <?php $this->beginBody() ?>
-
 <header>
     <?php
     NavBar::begin([
@@ -38,10 +37,14 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
+            ['label' => 'Articles', 'url' => ['/article/index']],
             ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+
             Yii::$app->user->isGuest ? (
                     ['label' => 'Signup', 'url'=> ['/site/signup']]
+            ) : '',
+            (\Yii::$app->user->can('admin')) ? (
+                    ['label' => 'Dashboard', 'url' => ['/admin/dashboard']]
             ) : '',
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
